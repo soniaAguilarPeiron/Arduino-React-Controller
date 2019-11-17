@@ -1,7 +1,8 @@
 # Arduino controller Client & Server implementation with Node and React
+Server will notify all clients for all changes made in server side (Arduino's server).
 
 ## CLIENT
-
+Client will listen ws for changes made in server side and this changes will be rendered in the view.
 #### Install project
 ```
 npm i
