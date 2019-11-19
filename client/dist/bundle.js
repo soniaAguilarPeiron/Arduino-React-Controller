@@ -837,10 +837,20 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return react_default.a.createElement("button", {
-        onClick: this.handleChange.bind(this),
-        value: this.state.currentState
-      }, this.state.currentState ? 'Apaga' : 'Encen');
+      return (
+        /*
+        <button onClick={this.handleChange.bind(this)} value={this.state.currentState}>
+            {this.state.currentState ? 'Turn ON' : 'Turn OFF'}
+        </button>*/
+        react_default.a.createElement("div", {
+          onTouchStart: ""
+        }, react_default.a.createElement("div", {
+          className: "button"
+        }, react_default.a.createElement("a", {
+          href: "#",
+          onClick: this.handleChange.bind(this)
+        }, this.state.currentState ? 'Turn ON' : 'Turn OFF')))
+      );
     }
   }, {
     key: "handleChange",

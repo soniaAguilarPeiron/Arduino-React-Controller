@@ -8,7 +8,7 @@ const server = http.createServer(function (request, response) {
     response.write('<h1>Hello, from server!</h1>');
     response.write('</body>');
     response.write('</html>');
-    response.end();º
+    response.end();
 });
 
 const led = {isOn: false};

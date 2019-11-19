@@ -45,9 +45,15 @@ class ArduinoController extends React.Component {
 
     render() {
         return (
+            /*
             <button onClick={this.handleChange.bind(this)} value={this.state.currentState}>
                 {this.state.currentState ? 'Turn ON' : 'Turn OFF'}
-            </button>
+            </button>*/
+            <div onTouchStart="">
+                <div className="button">
+                    <a href="#" onClick={this.handleChange.bind(this)}>{this.state.currentState ? 'Turn ON' : 'Turn OFF'}</a>
+                </div>
+            </div>
         );
     }
 

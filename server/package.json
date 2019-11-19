@@ -1,4 +1,3 @@
-/* per arrancar servidor : node index.jsx*/
 {
   "name": "server",
   "version": "1.0.0",
