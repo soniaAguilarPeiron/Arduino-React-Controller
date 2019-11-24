@@ -53,6 +53,7 @@ wsServer.on('request', function (request) {
 
             if (message.type === 'utf8') {
                 if (msg.msgCode === 'TurnOnMessage') {
+                    turnOnArduino();
                     led.isOn = true;
                     console.log('Received Message: ' + message.utf8Data);
                     wsServer.connections && wsServer.connections.forEach(function (client) {
@@ -62,6 +63,7 @@ wsServer.on('request', function (request) {
                         }));
                     });
                 } else if (msg.msgCode === 'TurnOffMessage') {
+                    turnOffArduino();
                     console.log('Received Message: ' + message.utf8Data);
                     wsServer.connections && wsServer.connections.forEach(function (client) {
                         client.connected && client.send(JSON.stringify({
@@ -78,3 +80,19 @@ wsServer.on('request', function (request) {
             console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
         });
 });
+
+const turnOnArduino = function() {
+    http.get('http://192.168.1.166:8083/LED=ON', (resp) => {
+
+    }).on("error", (err) => {
+        console.log("Error: " + err.message);
+    });
+};
+
+const turnOffArduino = function() {
+    http.get('http://192.168.1.166:8083/LED=OFF', (resp) => {
+
+    }).on("error", (err) => {
+        console.log("Error: " + err.message);
+    });
+};
