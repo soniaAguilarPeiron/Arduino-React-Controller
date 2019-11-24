@@ -1,4 +1,5 @@
 .idea/
-node_modules/
-build/
+client/node_modules/
+client/dist/
+server/node_modules/
 .DS_Store
