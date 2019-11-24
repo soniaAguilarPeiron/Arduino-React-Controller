@@ -37,6 +37,11 @@ wsServer.on('request', function (request) {
 
     console.log((new Date()) + ' Connection accepted.');
 
+    connection.connected && connection.send(JSON.stringify({
+        msgCode: "turnedOnLed",
+        from: connection.remoteAddress
+    }));
+
     connection
         .on('message', function (message) {
             const msg = JSON.parse(message.utf8Data);

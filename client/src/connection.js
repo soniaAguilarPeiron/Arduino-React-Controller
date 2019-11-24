@@ -83,6 +83,7 @@ export default class Connection {
 
     sendON() {
         console.log('sending ON');
+
         if (this.socket.readyState === this.socket.OPEN) {
 
             this.socket.send(JSON.stringify({
@@ -94,6 +95,7 @@ export default class Connection {
 
     sendOFF() {
         console.log('sending OFF');
+
         if (this.socket.readyState === this.socket.OPEN) {
 
             this.socket.send(JSON.stringify({

@@ -13,15 +13,15 @@ class ArduinoController extends React.Component {
     }
 
     componentDidMount() {
-        this.connect();
+        !this._isMounted && this.connect();
         this._isMounted = true;
     }
 
     connect() {
         const ws = new Connection(this.props.ipServer);
+        this.setState({ws:ws});
         ws.addMsgListener('turnedOffLed', this.turnOff.bind(this));
         ws.addMsgListener('turnedOnLed', this.turnOn.bind(this));
-        this.setState({ws:ws});
     };
 
     componentWillUnmount() {
@@ -30,16 +30,18 @@ class ArduinoController extends React.Component {
     }
 
     turnOn(from) {
-        this._isMounted && this.setState(state => ({
+        this.setState({
             currentState: true
-        }));
+        });
+        this.turnOnBackground();
         console.log('Turned on from ' + from)
     }
 
     turnOff(from) {
-        this._isMounted && this.setState(state => ({
+        this.setState({
             currentState: false
-        }));
+        });
+        this.turnOffBackground();
         console.log('Turned off from ' + from);
     }
 
@@ -49,27 +51,40 @@ class ArduinoController extends React.Component {
             <button onClick={this.handleChange.bind(this)} value={this.state.currentState}>
                 {this.state.currentState ? 'Turn ON' : 'Turn OFF'}
             </button>*/
-            <div onTouchStart="">
+            <div>
                 <div className="button">
-                    <a href="#" onClick={this.handleChange.bind(this)}>{this.state.currentState ? 'Turn ON' : 'Turn OFF'}</a>
+                    <a href="#" onClick={this.handleChange}>{this.state.currentState ? 'Turn OFF' : 'Turn ON'}</a>
                 </div>
             </div>
         );
     }
 
     handleChange(e) {
-        console.log('estat' + this.state.currentState)
-        this._isMounted && this.setState(state => ({
-            currentState: !state.currentState
+        console.log('before State: ' + this.state.currentState);
+            /*this.setState(state => ({
+                currentState: !state.currentState
 
-        }));
-        !this.state.currentState && this.state.ws.sendON();
-        this.state.currentState && this.state.ws.sendOFF();
+            }));*/
+
+            if (!this.state.currentState) {
+                this.state.ws.sendON();
+            } else {
+                this.state.ws.sendOFF();
+            }
+    }
+
+    turnOnBackground() {
+        document.body.classList.remove("off");
+        document.body.classList.add("on");
+    }
+    turnOffBackground() {
+        document.body.classList.remove("on");
+        document.body.classList.add("off");
     }
 
 }
 
 ReactDOM.render(
-    <ArduinoController ipServer = "ws://192.168.1.29:8090/"/>,
+    <ArduinoController ipServer = "ws://192.168.2.1:8090/"/>,
     document.getElementById('app')
 );
